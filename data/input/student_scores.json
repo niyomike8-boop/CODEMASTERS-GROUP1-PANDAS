@@ -1,0 +1,8 @@
+[
+  {"student": "Amina", "class": "A", "score": 82, "attendance": 0.94},
+  {"student": "Brian", "class": "B", "score": 74, "attendance": 0.88},
+  {"student": "Diana", "class": "A", "score": 91, "attendance": 0.97},
+  {"student": "Ethan", "class": "B", "score": 68, "attendance": 0.81},
+  {"student": "Fatima", "class": "A", "score": 87, "attendance": 0.92},
+  {"student": "Joel", "class": "B", "score": 79, "attendance": 0.90}
+]
