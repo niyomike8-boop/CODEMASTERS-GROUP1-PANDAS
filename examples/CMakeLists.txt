@@ -1,0 +1,4 @@
+add_executable(basic_usage basic_usage.cpp)
+target_link_libraries(basic_usage PRIVATE codemasterspandas)
+add_executable(io_usage io_usage.cpp)
+target_link_libraries(io_usage PRIVATE codemasterspandas)
