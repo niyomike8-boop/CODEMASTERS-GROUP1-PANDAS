@@ -27,6 +27,7 @@ int main() {
         });
         require(frame.rows()==3 && frame.cols()==3, "dimensions");
         require(frame.filter("score", [](const Value& v){return as_number(v)>10;}).rows()==2, "filter");
+        require(frame.filter("score", [](const Value& v) {return as_number(v) > 100;}).rows()==0, "filter with no matches");
         near(as_number(frame.sort_by("score",false).at(0,"score")),30,"descending sort");
         near(mean(frame.column("score")),20,"mean"); near(median(frame.column("score")),20,"median");
         near(standard_deviation(frame.column("score")),std::sqrt(200.0/3.0),"population standard deviation");
