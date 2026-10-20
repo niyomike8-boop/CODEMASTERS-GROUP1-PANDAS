@@ -1,0 +1,74 @@
+/**
+ * @file value_series_operations.cpp
+ * @brief Implementation of typed cells, indexing, slicing, mapping, and filtering for Value and Series.
+ * @details Exercising core data structures, transforming elements, and applying map/filter operations.
+ * @date October 2026
+ */
+
+#include <codemasterspandas/codemasterspandas.hpp>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <stdexcept>
+
+using namespace codemasterspandas;
+
+int main() {
+    try {
+        // =========================================================================
+        // 1. TYPED CELLS ('Value') INITIALIZATION & INSPECTION
+        // =========================================================================
+        // Initializing typed cell 'Value' containers holding different data types 
+        // (integer, double, string) to represent individual data points[cite: 1].
+        Value int_cell(42);
+        Value double_cell(3.14);
+        Value string_cell(std::string("Makerere"));
+
+        // =========================================================================
+        // 2. 'Series' CREATION & INDEXING
+        // =========================================================================
+        // Creating a homogeneous 'Series' container and performing indexing[cite: 1] 
+        // to retrieve elements by their explicit position.
+        Series scores("student_scores", {55.0, 80.5, 92.0, 43.5, 67.0});
+        
+        // Accessing individual elements via indexing[cite: 1]
+        double first_score = as_number(scores.at(0));
+        std::cout << "First score via indexing: " << first_score << '\n';
+
+        // =========================================================================
+        // 3. SERIES SLICING
+        // =========================================================================
+        // Slicing[cite: 1] the Series to isolate a sub-range of elements 
+        // (from index 1 inclusive up to index 4 exclusive).
+        Series sliced_scores = scores.slice(1, 4);
+        std::cout << "Sliced series size: " << sliced_scores.size() << '\n';
+
+        // =========================================================================
+        // 4. MAPPING OPERATIONS
+        // =========================================================================
+        // Applying a transformation function across each element in the Series (map)[cite: 2] 
+        // to scale or modify values (e.g., adding a bonus of 5.0 points to each score).
+        Series adjusted_scores = scores.map([](const Value& v) {
+            return Value(as_number(v) + 5.0);
+        });
+        std::cout << "First mapped score: " << as_number(adjusted_scores.at(0)) << '\n';
+
+        // =========================================================================
+        // 5. FILTERING OPERATIONS
+        // =========================================================================
+        // Filtering[cite: 2] the Series elements based on a conditional predicate 
+        // (retaining only scores greater than or equal to 60.0).
+        Series passing_scores = scores.filter([](const Value& v) {
+            return as_number(v) >= 60.0;
+        });
+        std::cout << "Number of passing scores after filtering: " << passing_scores.size() << '\n';
+
+        return 0;
+
+    } catch (const std::exception& e) {
+        // Handling any unexpected runtime errors during execution
+        std::cerr << "Error encountered: " << e.what() << '\n';
+        return 1;
+    }
+}
