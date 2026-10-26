@@ -1,42 +1,54 @@
-# CODEMASTERS GROUP 1 PANDAS PROJECT
-## Week 4 Progress Report: Testing, Review and Integration Preparation
+# Weekly Progress Report --- Week 4
 
-**Student Name:** Jemimah Aguti  
-**Project:** CODEMASTERS GROUP 1 PANDAS  
-**Assigned Branch:** `aguti-jemimah`  
-**Assigned Module:** DataFrame implementation  
-**Reporting Week:** Week 4  
+**Student:** Halima Ganyana\
+**Project:** CODEMASTERS-GROUP1-PANDAS\
+**Reporting period:** Week 4\
+**Focus:** Version control and sharing the work
 
+## Objectives
 
-## 1. Introduction
-The fourth week focused on reviewing the DataFrame implementation and preparing it for integration with the other project modules.
+-   Stage and commit the intended assignment files.
+-   Push the work to the student's remote branch.
+-   Prepare the work for review and possible merging into `main`.
 
-## 2. Objectives
-- Review the implemented DataFrame functions.
-- Identify possible errors and edge cases.
-- Check compatibility with the project's public interfaces.
-- Prepare the code for group review and integration.
+## Work carried out
 
-## 3. Activities Undertaken
-1. Reviewed the implementation in `src/dataframe.cpp`.
-2. Checked the DataFrame constructor, row and column access, selection, slicing, filtering, sorting, and derived-column operations.
-3. Reviewed validation logic for duplicate column names, invalid column references, and inconsistent row dimensions.
-4. Examined the `melt()` function, which transforms selected columns into a longer tabular representation.
-5. Identified the need to verify that all implementation declarations match the corresponding header file.
-6. Prepared the module for compilation checks, testing, and integration with the rest of the project.
-7. Reviewed the GitHub branch workflow for submitting changes for group review.
+-   Staged `include/codemasterspandas/value.hpp` and
+    `include/statistics.cpp`.
+-   Committed the changes with a message describing the statistics and
+    value-related work.
+-   Pushed the `halima-ganyana` branch to the GitHub repository.
+-   Verified from the terminal output that the push completed
+    successfully.
 
-## 4. Challenges Encountered
-The main integration considerations involved ensuring compatibility between source files and header declarations, checking edge cases, and confirming that the module builds correctly with the other project components.
+## Skills and knowledge gained
 
-## 5. Outcomes
-The reviewed implementation contains functions for tabular storage, column selection, slicing, filtering, sorting, derived columns, and a melt transformation.
+-   Practised the Git workflow: stage, commit, and push.
+-   Improved understanding of the difference between pushing a feature
+    branch and merging it into `main`.
+-   Gained experience checking Git output to confirm that a remote
+    update succeeded.
 
-Compilation, test execution, and successful integration should be recorded as completed only after the relevant checks have actually been performed.
+## Challenges
 
+-   Correcting file paths while staging files.
+-   Distinguishing successful local commits from successful remote
+    pushes.
+-   Understanding that a pull request or authorised merge is still
+    needed for the changes to become part of `main`.
 
-## 7. Conclusion
-Week 4 concentrated on reviewing the DataFrame implementation and preparing it for validation and integration. The module provides the core operations assigned to me, while final acceptance depends on successful compilation, testing, and group review.
+## Next steps
 
+-   Open a pull request from `halima-ganyana` into `main`.
+-   Review the changes and resolve any feedback or conflicts.
+-   Build and test the statistics functionality with the project before
+    considering the work complete.
+
+## Reflection
+
+The intended files were committed and pushed to the `halima-ganyana`
+branch. The work is available remotely for review. The merge into `main`
+and functional testing should be confirmed separately before reporting
+them as completed.
 
 AI was used

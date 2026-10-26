@@ -1,38 +1,52 @@
-# CODEMASTERS GROUP 1 PANDAS PROJECT
-## Week 1 Progress Report: Project Introduction and Requirements Analysis
+# Weekly Progress Report --- Week 1
 
-**Student Name:** Jemimah Aguti  
-**Project:** CODEMASTERS GROUP 1 PANDAS  
-**Assigned Branch:** `aguti-jemimah`  
-**Assigned Module:** DataFrame implementation  
-**Reporting Week:** Week 1  
+**Student:** Halima Ganyana\
+**Project:** CODEMASTERS-GROUP1-PANDAS\
+**Reporting period:** Week 1\
+**Focus:** Project familiarisation and planning
 
+## Objectives
 
-## 1. Introduction
-During the first week, the focus was on understanding the objectives of the CODEMASTERS GROUP 1 Pandas project and reviewing the responsibilities assigned to each group member. My responsibility was to implement the DataFrame module, which provides tabular data storage and operations similar to those found in the Pandas library.
+-   Understand the purpose and structure of the group C++ DataFrame
+    project.
+-   Review the repository and identify the files and components relevant
+    to the assigned work.
+-   Plan the statistics-related functionality to be implemented.
 
-## 2. Objectives
-- Understand the overall project requirements.
-- Identify the functions required for the DataFrame module.
-- Review the existing project structure and header files.
-- Plan the implementation approach for the assigned features.
+## Work carried out
 
-## 3. Activities Undertaken
-1. Reviewed the project allocation document and identified the required DataFrame features.
-2. Examined the structure of the C++ project and the relationship between source files and header files.
-3. Identified the main operations to implement, including tabular storage, column selection, slicing, row filtering, sorting, and derived columns.
-4. Planned how the DataFrame module would interact with the project's `Series` and `Value` types.
+-   Reviewed the project repository and its existing C++ source and
+    header files.
+-   Familiarised myself with the `codemasterspandas` namespace and the
+    DataFrame-related interfaces.
+-   Identified statistics functionality that needs to work with a
+    `DataFrame`, including grouped calculations.
 
-## 4. Challenges Encountered
-Understanding the relationship between the DataFrame implementation and the other modules required careful review of the project's structure and interfaces.
+## Skills and knowledge gained
 
-## 5. Planned Activities for Week 2
-- Implement the DataFrame constructor and storage mechanism.
-- Implement row and column access.
-- Add basic column selection and slicing functionality.
+-   Improved understanding of the organisation of a shared C++ project.
+-   Practised navigating a GitHub repository and using VS Code to
+    inspect project files.
+-   Improved understanding of how header files and implementation files
+    are organised in C++.
 
-## 6. Conclusion
-Week 1 established an understanding of the project requirements and provided a foundation for implementing the DataFrame module.
+## Challenges
 
+-   Understanding how the new statistics functionality should fit into
+    the existing project structure.
+-   Confirming the correct file locations and repository workflow.
+
+## Next week's plan
+
+-   Develop the declarations and implementation structure for the
+    assigned statistics functions.
+-   Check that function names and parameters are consistent with the
+    existing DataFrame interface.
+
+## Reflection
+
+This week focused on understanding the project before making changes.
+Reviewing the repository helped establish a clearer plan for
+implementing the statistics functionality.
 
 AI was used

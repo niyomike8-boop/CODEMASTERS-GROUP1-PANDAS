@@ -1,41 +1,50 @@
-# CODEMASTERS GROUP 1 PANDAS PROJECT
-## Week 2 Progress Report: DataFrame Storage and Basic Operations
+# Weekly Progress Report --- Week 2
 
-**Student Name:** Jemimah Aguti  
-**Project:** CODEMASTERS GROUP 1 PANDAS  
-**Assigned Branch:** `aguti-jemimah`  
-**Assigned Module:** DataFrame implementation  
-**Reporting Week:** Week 2  
+**Student:** Halima Ganyana\
+**Project:** CODEMASTERS-GROUP1-PANDAS\
+**Reporting period:** Week 2\
+**Focus:** Statistics function declarations
 
+## Objectives
 
-## 1. Introduction
-The second week focused on implementing the basic DataFrame structure and operations required to store and access tabular data.
+-   Organise the declarations for the statistics-related functions.
+-   Ensure the function signatures use the project's DataFrame and C++
+    types consistently.
+-   Keep the work aligned with the shared project structure.
 
-## 2. Objectives
-- Implement tabular data storage.
-- Support row and column counting.
-- Implement column access and selection.
-- Add row slicing functionality.
+## Work carried out
 
-## 3. Activities Undertaken
-1. Implemented a constructor that accepts column names and rows of values.
-2. Added checks to detect mismatched row widths and invalid empty-column configurations.
-3. Implemented functions for determining the number of rows and columns.
-4. Implemented column lookup and access by name.
-5. Developed the `select()` function to return selected columns.
-6. Developed the `slice()` function to retrieve a specified range of rows.
-7. Added checks for invalid slicing ranges and unknown column names.
+-   Worked on `include/statistics.cpp`, which contains declarations for
+    grouped statistical operations.
+-   Added or organised function signatures for grouped minimum, grouped
+    maximum, and grouped count operations.
+-   Reviewed the use of `std::map`, `std::string`, `std::size_t`, and
+    `DataFrame` references in the function signatures.
 
-## 4. Challenges Encountered
-Maintaining consistent row and column dimensions was an important consideration. Invalid column names and incorrect row sizes also required appropriate error handling.
+## Skills and knowledge gained
 
-## 5. Planned Activities for Week 3
-- Implement row filtering.
-- Implement sorting by a selected column.
-- Develop functionality for creating derived columns.
-- Review edge cases in the implemented functions.
+-   Practised writing C++ function declarations involving references and
+    standard-library containers.
+-   Improved understanding of how grouped statistical operations can
+    return results keyed by group.
+-   Gained more experience working with source files in VS Code.
 
-## 6. Conclusion
-Week 2 focused on establishing the DataFrame's storage structure and basic operations. The next stage was to extend its functionality with data filtering, sorting, and transformation.
+## Challenges
+
+-   Keeping the function signatures consistent and readable.
+-   Ensuring the statistics functions match the types and interfaces
+    used by the DataFrame component.
+
+## Next week's plan
+
+-   Continue developing the supporting value-related interface.
+-   Review naming and file placement, then check the files for
+    consistency with the project.
+
+## Reflection
+
+The work this week established the interface for several grouped
+statistics operations. Further review and testing are needed to confirm
+that the declarations integrate correctly with the rest of the project.
 
 AI was used

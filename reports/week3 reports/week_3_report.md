@@ -1,39 +1,54 @@
-# CODEMASTERS GROUP 1 PANDAS PROJECT
-## Week 3 Progress Report: Filtering, Sorting and Derived Columns
+# Weekly Progress Report --- Week 3
 
-**Student Name:** Jemimah Aguti  
-**Project:** CODEMASTERS GROUP 1 PANDAS  
-**Assigned Branch:** `aguti-jemimah`  
-**Assigned Module:** DataFrame implementation  
-**Reporting Week:** Week 3  
+**Student:** Halima Ganyana\
+**Project:** CODEMASTERS-GROUP1-PANDAS\
+**Reporting period:** Week 3\
+**Focus:** Supporting value interface and integration
+
+## Objectives
+
+-   Work on the supporting value-related header file.
+-   Keep the statistics and value files organised in the repository.
+-   Review the new files before committing them.
+
+## Work carried out
+
+-   Worked on `include/codemasterspandas/value.hpp`.
+-   Reviewed the relationship between the value-related interface and
+    the statistics functionality.
+-   Checked the locations of `value.hpp` and `statistics.cpp` in the
+    repository.
+-   Used Git status to distinguish the intended assignment files from
+    other untracked items.
+
+## Skills and knowledge gained
+
+-   Improved understanding of the role of C++ header files in exposing
+    types or interfaces.
+-   Practised using Git to stage selected files rather than adding
+    unrelated files.
+-   Improved attention to repository structure and version-control
+    hygiene.
+
+## Challenges
+
+-   Correctly identifying file paths when staging files from the
+    terminal.
+-   Avoiding unrelated untracked folders when preparing the changes for
+    a commit.
+
+## Next week's plan
+
+-   Commit the intended files, push the branch to GitHub, and verify the
+    remote update.
+-   Review the changes and coordinate their integration into the main
+    branch.
+
+## Reflection
+
+This week focused on the supporting value header and preparing the
+assignment files for version control. Careful file selection helped keep
+the intended changes separate from unrelated local files.
 
 
-## 1. Introduction
-During the third week, the focus was on implementing operations that allow users to retrieve, organize, and transform data stored in a DataFrame.
-
-## 2. Objectives
-- Implement row filtering using conditions.
-- Support ascending and descending sorting.
-- Allow users to create derived columns.
-- Improve validation and error handling.
-
-## 3. Activities Undertaken
-1. Implemented the `filter()` function to select rows satisfying a supplied predicate.
-2. Implemented the `sort_by()` function to order rows according to a selected column.
-3. Added support for ascending and descending sorting.
-4. Implemented the `with_column()` function to generate a new column from existing row values.
-5. Added logic to replace an existing column when the supplied name matches, or append a new column otherwise.
-6. Reviewed exception handling for invalid column references and other invalid inputs.
-
-## 4. Challenges Encountered
-Sorting required consideration of both numeric and non-numeric values. Derived-column operations also required maintaining the correct relationship between rows, columns, and their values.
-
-## 5. Planned Activities for Week 4
-- Review the completed DataFrame implementation.
-- Test normal inputs and edge cases.
-- Resolve any compilation or integration issues.
-- Prepare the module for review and submission through GitHub.
-
-## 6. Conclusion
-Week 3 expanded the DataFrame implementation to support filtering, sorting, and derived columns. These operations form an important part of the project's data manipulation functionality.
 AI was used
