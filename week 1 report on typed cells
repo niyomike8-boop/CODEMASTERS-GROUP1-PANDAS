@@ -1,0 +1,43 @@
+Report 1: 
+Typed Cells (Value) Initialization & Data Abstraction
+
+By Abalo Proscovia
+
+Registration Number: 25/U/26390/PS
+
+Bachelors of Science in Computer and Communications Engineering
+
+Primitive Cell Abstraction & Type Hiding
+
+typed_cells_demo.cpp
+
+1. Objective & Technical Scope
+The primary goal of this module was to construct and demonstrate the core primitive data container; the Value class. The Value class serves as a safe, encapsulated scalar cell capable of holding diverse C++ primitive types while maintaining strict data integrity and type abstraction.
+
+2. My Implementation Process
+To implement this part, I focused on the following steps:
+
+Instantiating Multi-Type Data Cells:
+
+Integer Representation: I declared Value int_cell(42); to store discrete integer values (e.g., counts, IDs, discrete metrics).
+
+Floating-Point Representation: I declared Value double_cell(3.14); to encapsulate continuous floating-point numbers (e.g., ratios, measurements, scaled scores).
+
+String Representation: I declared Value string_cell(std::string("Makerere")); to store textual metadata and labels.
+
+Encapsulation & Type Hiding Mechanics:
+
+Inside the Value class, the underlying storage mechanism (utilizing a std::variant<int, double, std::string>) is kept strictly private.
+
+By keeping internal members private, I ensured that external code cannot corrupt the internal state or perform unsafe direct pointer/type manipulation.
+
+Access to stored data is controlled exclusively through explicit conversion helpers (such as as_number()) and explicit getters like getType().
+
+Runtime Safety & Exception Control:
+
+I wrapped the initialization block inside a C++ try-catch structure.
+
+By catching const std::exception& e references at the top level, I guaranteed that any standard library exception or invalid conversion attempt is trapped gracefully and logged via std::cerr rather than causing an unhandled program collapse.
+
+3. Verification & Results
+Upon compiling and executing typed_cells_demo.cpp, all three Value instances were instantiated successfully without type collisions or memory leaks, confirming that heterogeneous data points can be handled safely within a single cohesive wrapper class.
