@@ -1,0 +1,32 @@
+Report 3: 
+Non-Destructive Sub-Range Slicing
+Abalo Proscovia
+
+Registration Number: 25/U/26390/PS
+
+BCCE
+
+Sub-dataset Isolation & Boundary Validation
+
+series_slicing.cpp
+1. Objective & Technical Scope
+The purpose of this module was to implement non-destructive slicing operations on Series datasets. Slicing allows engineering applications to extract specific contiguous windows of data points without mutating or destroying the original dataset.
+
+2. My Implementation Process
+Here is how I designed and validated the slicing functionality:
+
+Defining the Base Dataset:
+I instantiated the baseline Series container scores holding five floating-point values representing raw assessment results ({55.0, 80.5, 92.0, 43.5, 67.0}).
+
+Executing the Slicing Operation:
+I called scores.slice(1, 4); to extract elements from start index 1 (inclusive) up to end index 4 (exclusive).
+This sub-range isolated three specific entries (indices 1, 2, and 3: 80.5, 92.0, and 43.5).
+
+Ensuring Non-Destructive Memory Management:
+I designed the .slice() method to allocate and return a completely new Series instance (sliced_scores) rather than editing the existing buffer in-place.
+The original scores series retained all 5 original elements, ensuring side-effect-free data pipelines.
+
+Slicing Verification:
+I queried sliced_scores.size() to confirm that the generated subset container contained exactly 3 elements.
+3. Verification & Results
+The execution of series_slicing.cpp verified that sliced_scores.size() returned 3. The output confirmed that contiguous sub-series can be cleanly sliced, copied, and passed down analytical workflows without altering original raw source data.
