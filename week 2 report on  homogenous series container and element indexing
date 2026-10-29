@@ -1,0 +1,41 @@
+Report 2: 
+Homogeneous Series Container & Element Indexing
+
+Author: Abalo Proscovia
+
+Registration Number: 25/U/26390/PS
+
+Bachelors of science in Computer and Communications Engineering
+
+Unidimensional Dataset Container & Positional Retrieval
+
+series_creation_indexing.cpp
+
+1. Objective & Technical Scope
+This module expands on individual Value cells to build the unidimensional sequence container: the Series class. The objective was to couple metadata (column names) with contiguous collections of Value objects, providing fast, positional element indexing.
+
+2. My Implementation Process
+In this phase of the codebase, I engineered the following logic:
+
+Constructing the Series Object:
+
+I initialized a Series object named scores by passing a column identifier string ("student_scores") alongside an initializer list of double-precision values: {55.0, 80.5, 92.0, 43.5, 67.0}.
+
+The constructor automatically converts each numeric literal into an encapsulated Value cell and pushes it into an internal std::vector<Value> buffer.
+
+Implementing Position-Based Indexing:
+
+I used the public .at(size_t index) member function to query the element located at index position 0.
+
+Because .at() returns a const Value& reference, I processed the cell through the as_number() helper function to extract the primitive 55.0 double value.
+
+The retrieved score was displayed cleanly via standard stream output (std::cout).
+
+Enforcing Bounds Checking & Encapsulation:
+
+Unlike standard C-style arrays or raw pointer indexing ([]), using .at() enforces boundary checking.
+
+If an out-of-bounds index is passed, the method throws a std::out_of_range exception (inheriting from std::exception), preventing buffer overflows and arbitrary memory access.
+
+3. Verification & Results
+Executing series_creation_indexing.cpp confirmed that the first element in the sequence was correctly identified as 55.0. The result proves that positional indexing safely bridges client-side queries with encapsulated internal vector buffers.
