@@ -2,12 +2,12 @@
 #include <algorithm> 
 #include <cctype> 
 #include <fstream> 
-#include <sstream> 
+#include <sstream>  
 #include <stdexcept> 
 
 namespace codemasterspandas { 
-
-namespace { 
+ 
+namespace {   
 
 std::vector<std::string> parse_csv_line(const std::string& line) { 
     std::vector<std::string> fields; 
@@ -29,7 +29,7 @@ std::vector<std::string> parse_csv_line(const std::string& line) {
         } else if (c == '"') { 
             quoted = true;
         } else if (c == ',') {
-            fields.push_back(field); 
+            fields.push_back(field);  
             field.clear();
         } else {
             field += c; 
