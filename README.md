@@ -127,8 +127,4 @@ int main() {
 * `Series map(const std::function<Value(const Value&)>& operation) const`: Applies transformation across all elements.
 * `std::vector<Value> filter(const std::function<bool(const Value&)>& predicate) const`: Returns array of items satisfying predicate.
 
----
 
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
