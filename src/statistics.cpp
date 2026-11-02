@@ -19,7 +19,8 @@ namespace codemasterspandas {
                 s.values())
                 if(is_numeric(v))
                 out.push_back(as_number(v));
-                return out;}}type
+                return out;}
+            }
                 template <typename T>
                 double numeric_mean(const std::vector<T>& data)
                 { 
@@ -30,7 +31,7 @@ namespace codemasterspandas {
                     }
                     double total = 0.0;
                     for (const T& value : data){
-                        total += static_cast<double>(value;)
+                        total += static_cast<double>(value);
                     }
                     return total / data.size();
                 }
