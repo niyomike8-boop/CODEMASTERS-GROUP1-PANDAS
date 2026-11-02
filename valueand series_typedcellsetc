@@ -1,74 +1,162 @@
-/**
- * @file value_series_operations.cpp
- * @brief Implementation of typed cells, indexing, slicing, mapping, and filtering for Value and Series.
- * @details Exercising core data structures, transforming elements, and applying map/filter operations.
- * @date October 2026
- */
-
-#include <codemasterspandas/codemasterspandas.hpp>
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
+#include "codemasterspandas/series.hpp"
 #include <stdexcept>
 
-using namespace codemasterspandas;
+namespace codemasterspandas {
 
-int main() {
-    try {
-        // =========================================================================
-        // 1. TYPED CELLS ('Value') INITIALIZATION & INSPECTION
-        // =========================================================================
-        // Initializing typed cell 'Value' containers holding different data types 
-        // (integer, double, string) to represent individual data points[cite: 1].
-        Value int_cell(42);
-        Value double_cell(3.14);
-        Value string_cell(std::string("Makerere"));
-
-        // =========================================================================
-        // 2. 'Series' CREATION & INDEXING
-        // =========================================================================
-        // Creating a homogeneous 'Series' container and performing indexing[cite: 1] 
-        // to retrieve elements by their explicit position.
-        Series scores("student_scores", {55.0, 80.5, 92.0, 43.5, 67.0});
-        
-        // Accessing individual elements via indexing[cite: 1]
-        double first_score = as_number(scores.at(0));
-        std::cout << "First score via indexing: " << first_score << '\n';
-
-        // =========================================================================
-        // 3. SERIES SLICING
-        // =========================================================================
-        // Slicing[cite: 1] the Series to isolate a sub-range of elements 
-        // (from index 1 inclusive up to index 4 exclusive).
-        Series sliced_scores = scores.slice(1, 4);
-        std::cout << "Sliced series size: " << sliced_scores.size() << '\n';
-
-        // =========================================================================
-        // 4. MAPPING OPERATIONS
-        // =========================================================================
-        // Applying a transformation function across each element in the Series (map)[cite: 2] 
-        // to scale or modify values (e.g., adding a bonus of 5.0 points to each score).
-        Series adjusted_scores = scores.map([](const Value& v) {
-            return Value(as_number(v) + 5.0);
-        });
-        std::cout << "First mapped score: " << as_number(adjusted_scores.at(0)) << '\n';
-
-        // =========================================================================
-        // 5. FILTERING OPERATIONS
-        // =========================================================================
-        // Filtering[cite: 2] the Series elements based on a conditional predicate 
-        // (retaining only scores greater than or equal to 60.0).
-        Series passing_scores = scores.filter([](const Value& v) {
-            return as_number(v) >= 60.0;
-        });
-        std::cout << "Number of passing scores after filtering: " << passing_scores.size() << '\n';
-
-        return 0;
-
-    } catch (const std::exception& e) {
-        // Handling any unexpected runtime errors during execution
-        std::cerr << "Error encountered: " << e.what() << '\n';
-        return 1;
+Series::Series(std::string name, std::vector<Value> values) 
+    : name_(std::move(name)), values_(std::move(values)) {
+    if (name_.empty()) {
+        throw std::invalid_argument("series name cannot be empty");
     }
 }
+
+const std::string& Series::name() const noexcept { 
+    return name_; 
+}
+
+std::size_t Series::size() const noexcept { 
+    return values_.size(); 
+}
+
+bool Series::empty() const noexcept { 
+    return values_.empty(); 
+}
+
+const std::vector<Value>& Series::values() const noexcept { 
+    return values_; 
+}
+
+const Value& Series::at(std::size_t index) const { 
+    return values_.at(index); 
+}
+
+Value& Series::at(std::size_t index) { 
+    return values_.at(index); 
+}
+
+Series Series::slice(std::size_t begin, std::size_t end) const {
+    if (begin > end || end > size()) {
+        throw std::out_of_range("invalid series slice");
+    }
+    return Series(name_, {
+        values_.begin() + static_cast<std::ptrdiff_t>(begin), 
+        values_.begin() + static_cast<std::ptrdiff_t>(end)
+    });
+}
+
+Series Series::map(const std::function<Value(const Value&)>& operation) const {
+    std::vector<Value> output; 
+    output.reserve(size());
+    for (const auto& item : values_) {
+        output.push_back(operation(item));
+    }
+    return Series(name_, std::move(output));
+}
+
+std::vector<Value> Series::filter(const std::function<bool(const Value&)>& predicate) const {
+    std::vector<Value> output; 
+    for (const auto& item : values_) {
+        if (predicate(item)) {
+            output.push_back(item);
+        }
+    } 
+    return output;
+}
+
+} // namespace codemasterspandas
+
+/*
+ * REPORT ON SERIES IMPLEMENTATION (series.cpp)
+
+ * 1. Constructor & Validation: Initializes the series name and underlying values,
+ *    ensuring the name is non-empty by throwing an std::invalid_argument exception.
+ * 2. Accessors & Metadata: Provides lightweight, non-throwing (noexcept) methods 
+ *    to retrieve series metadata such as name, size, emptiness, and the underlying vector.
+ * 3. Element Access: Offers bounds-checked element access (`at`) for both const 
+ *    and non-const contexts, leveraging std::vector's out-of-range safety.
+ * 4. Slicing: Implements `slice` to extract a sub-range of elements into a new Series,
+ *    with index validation protecting against invalid boundaries.
+ * 5. Transformations & Filtering: 
+ *    - `map` applies a unary operation function across all elements to produce a new transformed Series.
+ *    - `filter` evaluates elements against a predicate function, returning a filtered vector of matching values.
+ 
+ */
+
+#include "codemasterspandas/value.hpp"
+#include <algorithm>
+#include <cctype>
+#include <iomanip>
+#include <sstream>
+#include <stdexcept>
+
+namespace codemasterspandas {
+
+std::string value_to_string(const Value& value) {
+    if (std::holds_alternative<std::monostate>(value)) return "";
+    if (const auto* text = std::get_if<std::string>(&value)) return *text;
+    if (const auto* boolean = std::get_if<bool>(&value)) return *boolean ? "true" : "false";
+    if (const auto* integer = std::get_if<std::int64_t>(&value)) return std::to_string(*integer);
+    
+    std::ostringstream out; 
+    out << std::setprecision(15) << std::get<double>(value); 
+    return out.str();
+}
+
+bool is_numeric(const Value& value) {
+    return std::holds_alternative<std::int64_t>(value) || std::holds_alternative<double>(value);
+}
+
+double as_number(const Value& value) {
+    if (const auto* integer = std::get_if<std::int64_t>(&value)) return static_cast<double>(*integer);
+    if (const auto* number = std::get_if<double>(&value)) return *number;
+    throw std::invalid_argument("value is not numeric");
+}
+
+Value parse_value(const std::string& text) {
+    if (text.empty()) return std::monostate{};
+    
+    std::string lower = text;
+    std::transform(lower.begin(), lower.end(), lower.begin(), [](unsigned char c){ 
+        return static_cast<char>(std::tolower(c)); 
+    });
+    
+    if (lower == "true") return true;
+    if (lower == "false") return false;
+    
+    try { 
+        std::size_t used = 0; 
+        auto n = std::stoll(text, &used); 
+        if (used == text.size()) return static_cast<std::int64_t>(n); 
+    } catch (...) {}
+    
+    try { 
+        std::size_t used = 0; 
+        auto n = std::stod(text, &used); 
+        if (used == text.size()) return n; 
+    } catch (...) {}
+    
+    return text;
+}
+
+} // namespace codemasterspandas
+
+/*
+ * REPORT ON VALUE UTILITIES IMPLEMENTATION (value.cpp)
+
+ * 1. String Conversion (`value_to_string`): Safely inspects a `std::variant` (Value) 
+ *    using `std::holds_alternative` and `std::get_if`, converting each type (monostate, 
+ *    string, boolean, integer, double) to its appropriate string representation with high precision.
+
+ * 2. Type Checking (`is_numeric`): Determines whether a stored value is numeric by checking 
+ *    if it holds either a 64-bit integer or a double.
+
+ * 3. Numeric Casting (`as_number`): Extracts the numeric value (casting integers to double 
+ *    when needed) or throws an `std::invalid_argument` if the variant holds a non-numeric type.
+
+ * 4. Value Parsing (`parse_value`): Converts raw text strings into typed `Value` variants:
+ *    - Empty strings become `std::monostate{}` (representing null/missing data).
+ *    - Boolean literals ("true"/"false", case-insensitive) become `bool`.
+ *    - Valid integer strings become `std::int64_t`.
+ *    - Valid floating-point strings become `double`.
+ *    - Fallback defaults to a standard `std::string`.
+ */
