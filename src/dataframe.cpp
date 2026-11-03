@@ -1,5 +1,6 @@
 #include "codemasterspandas/dataframe.hpp"
 #include <algorithm>
+#include <iomanip>
 #include <sstream>
 #include <stdexcept>
 
@@ -69,8 +70,44 @@ DataFrame DataFrame::with_column(const std::string& name, const std::function<Va
     return DataFrame(std::move(names),std::move(rows));
 }
 std::string DataFrame::to_string() const {
-    std::ostringstream out; for(std::size_t c=0;c<cols();++c){if(c)out<<"\t";out<<columns_[c].name();} out<<"\n";
-    for(std::size_t r=0;r<row_count_;++r){for(std::size_t c=0;c<cols();++c){if(c)out<<"\t";out<<value_to_string(columns_[c].at(r));}out<<"\n";} return out.str();
+    if (cols() == 0) return {};
+
+    std::ostringstream out;
+    std::vector<std::size_t> widths(cols());
+
+    for (std::size_t c = 0; c < cols(); ++c) {
+        widths[c] = columns_[c].name().size();
+        for (std::size_t r = 0; r < row_count_; ++r) {
+            const std::string value = value_to_string(columns_[c].at(r));
+            if (value.size() > widths[c]) widths[c] = value.size();
+        }
+    }
+
+    out << '|';
+    for (std::size_t c = 0; c < cols(); ++c) {
+        out << ' ' << std::left
+            << std::setw(static_cast<int>(widths[c]))
+            << columns_[c].name() << " |";
+    }
+    out << '\n';
+
+    out << '|';
+    for (std::size_t c = 0; c < cols(); ++c) {
+        out << std::string(widths[c] + 2, '-') << '|';
+    }
+    out << '\n';
+
+    for (std::size_t r = 0; r < row_count_; ++r) {
+        out << '|';
+        for (std::size_t c = 0; c < cols(); ++c) {
+            out << ' ' << std::left
+                << std::setw(static_cast<int>(widths[c]))
+                << value_to_string(columns_[c].at(r)) << " |";
+        }
+        out << '\n';
+    }
+
+    return out.str();
 }
 DataFrame melt(const DataFrame& frame, const std::vector<std::string>& id_columns,
                const std::vector<std::string>& value_columns,
