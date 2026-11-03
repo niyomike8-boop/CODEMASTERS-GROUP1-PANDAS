@@ -1,63 +1,91 @@
 #pragma once
 
 #include "codemasterspandas/dataframe.hpp"
+
+#include <map>
+#include <stdexcept>
 #include <string>
+#include <type_traits>
+#include <vector>
 
 namespace codemasterspandas {
 
-// Reads data from a CSV file and returns it as a DataFrame
-DataFrame read_csv(const std::string& path);
+// Basic statistics
+std::size_t count(const Series& series);
+double sum(const Series& series);
+double minimum(const Series& series);
+double maximum(const Series& series);
+double mean(const Series& series);
+double median(const Series& series);
 
-// Writes a DataFrame to a CSV file
-void write_csv(const DataFrame& frame, const std::string& path);
+double standard_deviation(
+    const Series& series,
+    bool sample = false
+);
 
-// Reads data from a JSON file and returns it as a DataFrame
-DataFrame read_json(const std::string& path);
+double quantile(
+    const Series& series,
+    double q
+);
 
-// Writes a DataFrame to a JSON file
-void write_json(const DataFrame& frame, const std::string& path);
+double percentile(
+    const Series& series,
+    double p
+);
 
+double correlation(
+    const Series& left,
+    const Series& right
+);
 
-// Base class for all data exporters.
-// It provides a common interface for exporting data.
-class DataExporter {
-public:
+// Grouped statistics
+std::map<std::string, double> group_sum(
+    const DataFrame& frame,
+    const std::string& group_column,
+    const std::string& value_column
+);
 
-    // Pure virtual function.
-    // Each derived class must define how it exports the data.
-    virtual void exportData(
-        const DataFrame& data,
-        const std::string& path
-    ) = 0;
+std::map<std::string, double> group_min(
+    const DataFrame& frame,
+    const std::string& group_column,
+    const std::string& value_column
+);
 
-    // Virtual destructor allows safe deletion through base-class pointers.
-    virtual ~DataExporter() = default;
-};
+std::map<std::string, double> group_max(
+    const DataFrame& frame,
+    const std::string& group_column,
+    const std::string& value_column
+);
 
+std::map<std::string, std::size_t> group_count(
+    const DataFrame& frame,
+    const std::string& group_column
+);
 
-// CSVExporter inherits from DataExporter.
-// It exports a DataFrame in CSV format.
-class CSVExporter : public DataExporter {
-public:
+// Template function for numerical data types
+template <typename T>
+double numeric_mean(const std::vector<T>& data)
+{
+    static_assert(
+        std::is_arithmetic_v<T>,
+        "numeric_mean requires a numerical data type"
+    );
 
-    // Overrides the exportData() function from DataExporter.
-    void exportData(
-        const DataFrame& data,
-        const std::string& path
-    ) override;
-};
+    if (data.empty())
+    {
+        throw std::invalid_argument(
+            "Data cannot be empty"
+        );
+    }
 
+    double total = 0.0;
 
-// JSONExporter also inherits from DataExporter.
-// It exports a DataFrame in JSON format.
-class JSONExporter : public DataExporter {
-public:
+    for (const T& value : data)
+    {
+        total += static_cast<double>(value);
+    }
 
-    // Overrides the exportData() function for JSON files.
-    void exportData(
-        const DataFrame& data,
-        const std::string& path
-    ) override;
-};
+    return total / static_cast<double>(data.size());
+}
 
 } // namespace codemasterspandas
