@@ -1,0 +1,82 @@
+[
+  {
+    "employee_id": 101,
+    "name": "Robert Bob",
+    "department": "Engineering",
+    "age": 24,
+    "salary": 1500000,
+    "performance": 82
+  },
+  {
+    "employee_id": 102,
+    "name": "Amina Naka",
+    "department": "Finance",
+    "age": 26,
+    "salary": 1800000,
+    "performance": 91
+  },
+  {
+    "employee_id": 103,
+    "name": "Mukose Divine",
+    "department": "Engineering",
+    "age": 23,
+    "salary": 1200000,
+    "performance": 75
+  },
+  {
+    "employee_id": 104,
+    "name": "Sarah Nam",
+    "department": "IT",
+    "age": 25,
+    "salary": 2000000,
+    "performance": 95
+  },
+  {
+    "employee_id": 105,
+    "name": "Abalo Proscovia",
+    "department": "Finance",
+    "age": 28,
+    "salary": 1750000,
+    "performance": 88
+  },
+  {
+    "employee_id": 106,
+    "name": "Grace Auma",
+    "department": "IT",
+    "age": 22,
+    "salary": 1400000,
+    "performance": 79
+  },
+  {
+    "employee_id": 107,
+    "name": "David Mugisha",
+    "department": "Engineering",
+    "age": 27,
+    "salary": 2200000,
+    "performance": 93
+  },
+  {
+    "employee_id": 108,
+    "name": "Mary Akello", 
+    "department": "Finance", 
+    "age": 24,
+    "salary": 1650000, 
+    "performance": 86
+  },
+  {
+    "employee_id": 109, 
+    "name": "Samuel Kato", 
+    "department": "IT",
+    "age": 29, 
+    "salary": 2300000, 
+    "performance": 90  
+  },
+  {
+    "employee_id": 110, 
+    "name": "Jane Namusoke",  
+    "department": "Engineering", 
+    "age": 26, 
+    "salary": 1950000, 
+    "performance": 89 
+  }
+]

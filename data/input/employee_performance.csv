@@ -1,0 +1,11 @@
+id,name,department,score,hours,active
+1,Amina,Engineering,88,40,true
+2,Brian,Sales,74,38,true
+3,Diana,Engineering,91,42,true
+4,Ethan,Sales,68,36,false
+5,Fatima,HR,83,35,true
+6,Joel,Engineering,79,41,true
+7,Maria,HR,95,39,true
+8,Robert,Sales,67,37,false
+9,Grace,Engineering,86,40,true
+10,Peter,HR,72,34,true
