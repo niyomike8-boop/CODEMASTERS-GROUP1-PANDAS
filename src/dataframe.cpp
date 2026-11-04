@@ -54,10 +54,33 @@ DataFrame DataFrame::filter(const std::string& name, const std::function<bool(co
     return DataFrame(columns(), std::move(rows));
 }
 DataFrame DataFrame::sort_by(const std::string& name, bool ascending) const {
-    const auto& key = column(name); std::vector<std::size_t> order(row_count_); for (std::size_t i=0;i<row_count_;++i) order[i]=i;
-    std::stable_sort(order.begin(), order.end(), [&](auto a, auto b){ const auto& x=key.at(a); const auto& y=key.at(b); bool less;
-        if (is_numeric(x) && is_numeric(y)) less=as_number(x)<as_number(y); else less=value_to_string(x)<value_to_string(y); return ascending ? less : (!less && x!=y); });
-    std::vector<std::vector<Value>> rows; for (auto r : order) { std::vector<Value> row; for (const auto& col : columns_) row.push_back(col.at(r)); rows.push_back(std::move(row)); }
+    const auto& key = column(name);
+    std::vector<std::size_t> order(row_count_);
+    for (std::size_t i = 0; i < row_count_; ++i) order[i] = i;
+
+    std::stable_sort(order.begin(), order.end(),
+        [&](std::size_t a, std::size_t b) {
+            const Value& x = key.at(a);
+            const Value& y = key.at(b);
+
+            if (is_numeric(x) && is_numeric(y)) {
+                return ascending ? as_number(x) < as_number(y)
+                                 : as_number(x) > as_number(y);
+            }
+            if (is_numeric(x) != is_numeric(y)) {
+                return ascending ? is_numeric(x) : is_numeric(y);
+            }
+            const std::string left = value_to_string(x);
+            const std::string right = value_to_string(y);
+            return ascending ? left < right : left > right;
+        });
+
+    std::vector<std::vector<Value>> rows;
+    for (std::size_t r : order) {
+        std::vector<Value> row;
+        for (const auto& col : columns_) row.push_back(col.at(r));
+        rows.push_back(std::move(row));
+    }
     return DataFrame(columns(), std::move(rows));
 }
 DataFrame DataFrame::with_column(const std::string& name, const std::function<Value(const std::vector<Value>&)>& op) const {
