@@ -52,6 +52,30 @@ int main()
             "filter with no matches"
         );
         near(as_number(frame.sort_by("score", false).at(0, "score")), 30.0, "descending sort");
+
+        // Equal numeric values must retain their order in both directions.
+        DataFrame tied_scores(
+            {"name", "score"},
+            {
+                {std::string("first"), std::int64_t{10}},
+                {std::string("second"), 10.0},
+                {std::string("highest"), 20.0},
+                {std::string("lowest"), 5.0}
+            }
+        );
+        const DataFrame descending_ties = tied_scores.sort_by("score", false);
+        require(descending_ties.at(0, "name") == Value(std::string("highest")),
+                "descending sort places highest first");
+        require(descending_ties.at(1, "name") == Value(std::string("first")) &&
+                descending_ties.at(2, "name") == Value(std::string("second")),
+                "descending sort preserves equal mixed-numeric keys");
+        const DataFrame ascending_ties = tied_scores.sort_by("score", true);
+        require(ascending_ties.at(0, "name") == Value(std::string("lowest")),
+                "ascending sort places lowest first");
+        require(ascending_ties.at(1, "name") == Value(std::string("first")) &&
+                ascending_ties.at(2, "name") == Value(std::string("second")),
+                "ascending sort preserves equal mixed-numeric keys");
+
         require(
             frame.with_column(
                 "double",
